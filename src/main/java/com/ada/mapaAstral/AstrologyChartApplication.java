@@ -1,27 +1,39 @@
 package com.ada.mapaAstral;
 
-import com.ada.mapaAstral.service.MapaAstralService;
+import com.ada.mapaAstral.service.AstrologyChartService;
+import com.ada.mapaAstral.service.QuantumMapService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.*;
+import java.util.List;
 
 @SpringBootApplication
 public class AstrologyChartApplication {
 
 	public static void main(String[] args) {
 
-		LocalDateTime localDateTimeLucas = LocalDateTime.of(1992, Month.DECEMBER, 16, 12, 35);
-		LocalDateTime localDateTimeAry = LocalDateTime.of(1991, Month.NOVEMBER, 20, 17, 17);
+		private static String HOME = System.getProperty("user.dir");
+		private static String pathPasta = HOME.concat("/src/main/resources/mapa");
 
-		MapaAstralService mapaAstralService = new MapaAstralService();
+		public static void main (String[]args){
+			AstrologyChartService astrologyChartService = new AstrologyChartService();
+			QuantumMapService quantumMapService = new QuantumMapService(astrologyChartService);
 
-		String signoIngrid = mapaAstralService.buscaPorSigno(localDateTimeAry.toLocalDate());
-		String signoAscendenteAry = mapaAstralService.procurarAscendente(signoIngrid, LocalTime.from(localDateTimeAry));
-		String buscaSignoPorEnunAry = mapaAstralService.buscaSignoPorEnun(localDateTimeAry);
-		mapaAstralService.mapaAstral(localDateTimeAry);
 
-		String localizarSingnoLunarAry = mapaAstralService.localizarSingnoLunar(LocalTime.from(localDateTimeAry),"Rio_de_Janeiro");
-		System.out.println(localizarSingnoLunarAry);
+			// lendo arquivo
+
+			Path pathArquivo = Paths.get(pathPasta, "integrantes.txt");
+
+			List<String> listaIntegrantes = QuantumMapService.lerArquivo(pathArquivo);
+			listaIntegrantes.forEach(System.out::println);
+
+			// escrevendo arquivo -com Parallel
+
+			quantumMapService.escreverMapaQuantico(listaIntegrantes);
+
+		}
 	}
 }
 

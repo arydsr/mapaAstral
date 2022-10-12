@@ -1,0 +1,7 @@
+QuantumMap
+Nome: Ary de Sa Ribeiro
+Signo: Não tem signo!!
+Anscendente: Ufa, não tem ascendente
+Local Nascimento: America/Sao_Paulo
+Hora Nascimento: 1991-11-20T17:17
+Idade: 30
